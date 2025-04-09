@@ -1,0 +1,80 @@
+_schema-version: "3.2"
+ID: po_react_advanced_html
+version: 0.0.1
+modules:
+- name: po_react_advanced_html-destination-content
+  type: com.sap.application.content
+  requires:
+  - name: po_react_advanced_html-destination-service
+    parameters:
+      content-target: true
+  - name: po_react_advanced_html_html_repo_host
+    parameters:
+      service-key:
+        name: po_react_advanced_html_html_repo_host-key
+  - name: uaa_po_react_advanced_html
+    parameters:
+      service-key:
+        name: uaa_po_react_advanced_html-key
+  parameters:
+    content:
+      instance:
+        destinations:
+        - Name: po_advanced_react_new_html_po_react_advanced_html_html_repo_host
+          ServiceInstanceName: po_react_advanced_html-html5-app-host-service
+          ServiceKeyName: po_react_advanced_html_html_repo_host-key
+          sap.cloud.service: po_advanced_react_new_html
+        - Authentication: OAuth2UserTokenExchange
+          Name: po_advanced_react_new_html_uaa_po_react_advanced_html
+          ServiceInstanceName: po_react_advanced_html-xsuaa-service
+          ServiceKeyName: uaa_po_react_advanced_html-key
+          sap.cloud.service: po_advanced_react_new_html
+        existing_destinations_policy: ignore
+  build-parameters:
+    no-source: true
+- name: po_react_advanced_html_ui_deployer
+  type: com.sap.application.content
+  path: .
+  requires:
+  - name: po_react_advanced_html_html_repo_host
+    parameters:
+      content-target: true
+  build-parameters:
+    build-result: resources
+    requires:
+    - artifacts:
+      - po_advanced_react-content.zip
+      name: po_advanced_react
+      target-path: resources/
+- name: po_advanced_react
+  type: html5
+  path: po_advanced_react
+  build-parameters:
+    builder: custom
+    commands:
+    - npm install
+    - npm run build
+    supported-platforms: []
+resources:
+- name: po_react_advanced_html-destination-service
+  type: org.cloudfoundry.managed-service
+  parameters:
+    config:
+      HTML5Runtime_enabled: true
+      version: 1.0.0
+    service: destination
+    service-name: po_react_advanced_html-destination-service
+    service-plan: lite
+- name: po_react_advanced_html_html_repo_host
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-name: po_react_advanced_html-html5-app-host-service
+    service-plan: app-host
+- name: uaa_po_react_advanced_html
+  type: org.cloudfoundry.managed-service
+  parameters:
+    path: ./xs-security.json
+    service: xsuaa
+    service-name: po_react_advanced_html-xsuaa-service
+    service-plan: application

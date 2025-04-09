@@ -1,0 +1,11 @@
+{
+  "sap.app": {
+    "id": "po_advanced_react",
+    "applicationVersion": {
+      "version": "1.0.0"
+    }
+  },
+  "sap.cloud": {
+    "service": "po_advanced_react_new_html"
+  }
+}
