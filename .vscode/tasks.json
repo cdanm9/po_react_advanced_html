@@ -1,0 +1,22 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Run po_react_advanced_html",
+      "type": "shell",
+      "dependsOn": "Build po_react_advanced_html",
+      "command": "if [ ! -f ${workspaceFolder}/node_modules/@sap/html5-repo-mock/index.js ] || [ ! -f ${workspaceFolder}/node_modules/@sap/approuter/approuter.js ]; then npm i @sap/approuter && npm i @sap/html5-repo-mock; fi",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      }
+    },
+    {
+      "label": "Build po_react_advanced_html",
+      "type": "shell",
+      "command": "if [ ! -d ${workspaceFolder}/po_advanced_react/build ]; then npm run build-po_advanced_react; fi",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      }
+    }
+  ]
+}

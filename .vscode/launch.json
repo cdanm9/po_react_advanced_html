@@ -1,0 +1,22 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run PO_React_CRUD",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/node_modules/@sap/html5-repo-mock/index.js",
+      "args": [
+        "--standalone",
+        "/po_advanced_react/index.html"
+      ],
+      "cwd": "${workspaceFolder}/po_advanced_react/build",
+      "env": {
+        "PORT": "6004",
+        "run.config": "{\"handlerId\":\"html5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/po_react_advanced_html/po_advanced_react\"}"
+      },
+      "envFile": "${workspaceFolder}/po_advanced_react/.env3",
+      "preLaunchTask": "Run po_react_advanced_html"
+    }
+  ]
+}

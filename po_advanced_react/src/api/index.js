@@ -18,3 +18,13 @@ export const getTableCount = async () => {
   const { data } = await instance.get("/Plants/$count");
   return data;
 };
+
+export const createPlant = async (payload) => {
+  const { data } = await instance.post("/Plants", payload, {
+    headers: {
+      "Content-Type": "application/json"
+    }
+  });
+
+  return data;
+};
