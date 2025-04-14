@@ -161,7 +161,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import DeleteIcon from '@mui/icons-material/Delete';
 // import FilterListIcon from '@mui/icons-material/FilterList';
-import AddIcon from '@mui/icons-material/Add';
+// import AddIcon from '@mui/icons-material/Add';
 import { visuallyHidden } from '@mui/utils';
 import { getTableData, getTableCount } from "api";
 import React, { useState,useEffect } from "react";
@@ -294,7 +294,11 @@ EnhancedTableHead.propTypes = {
 };
 
 function EnhancedTableToolbar(props) {
-  const { numSelected } = props;
+  const { numSelected} = props;
+  const handleDeleteClick=async (event,numberOfItems)=>{
+    // console.log(property)
+    console.log(event)   
+  }
   return (
     <Toolbar
       sx={[
@@ -328,9 +332,9 @@ function EnhancedTableToolbar(props) {
         </Typography>
       )}
       {numSelected > 0 ? (
-        <Tooltip title="Delete">
+        <Tooltip title="Delete" onClick={(event) => handleDeleteClick(event,numSelected)}>   
           <IconButton>
-            <DeleteIcon />
+            <DeleteIcon  />
           </IconButton>
         </Tooltip>
       ) : (
@@ -342,7 +346,7 @@ function EnhancedTableToolbar(props) {
 }
 
 EnhancedTableToolbar.propTypes = {
-  numSelected: PropTypes.number.isRequired,
+  numSelected: PropTypes.number.isRequired  
 };
 
 export default function EnhancedTable() {
@@ -354,21 +358,21 @@ export default function EnhancedTable() {
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
 
-  const [items, setItems] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [rowCount, setRowCount] = useState(0);
+  // const [items, setItems] = useState([]);
+  // const [loading, setLoading] = useState(false);
+  // const [rowCount, setRowCount] = useState(0);
   const [rows, setRows] = useState([]);
 
   
 
   const loadData = async (isFirstLoad, skip = 0) => {
     try {
-      setItems([]);
-      setLoading(true);
+      // setItems([]);
+      // setLoading(true);
 
       if (isFirstLoad) {
-        const count = await getTableCount();
-        setRowCount(count);
+        // const count = await getTableCount();
+        // setRowCount(count);
       }
 
       const _items = await getTableData({
@@ -381,7 +385,6 @@ export default function EnhancedTable() {
         id: index + skip, // unique id per row
       }));
 
-      setItems(itemsWithIds);
       setRows(itemsWithIds);
 
 
@@ -401,7 +404,7 @@ export default function EnhancedTable() {
       //   createData(13, 'Oreo', 437, 18.0, 63, 4.0),
       // ];
     } finally {
-      setLoading(false);
+      // setLoading(false);
     }
   };
 
@@ -471,7 +474,7 @@ export default function EnhancedTable() {
   return (
     <Box sx={{ width: '100%' }}>
       <Paper sx={{ width: '100%', mb: 2 }}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+        <EnhancedTableToolbar numSelected={selected.length} selectedItems={selected} rows={rows} setRows={setRows}/>
         <TableContainer>
           <Table
             sx={{ minWidth: 750 }}
@@ -489,7 +492,7 @@ export default function EnhancedTable() {
             <TableBody>
               {rows.map((row, index) => {    
                 const isItemSelected = selected.includes(row.id);
-                const labelId = `enhanced-table-checkbox-${index}`;
+                // const labelId = `enhanced-table-checkbox-${index}`;
 
                 return (
                   <TableRow
@@ -545,10 +548,10 @@ export default function EnhancedTable() {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Paper>
-      <FormControlLabel
+      {/* <FormControlLabel
         control={<Switch checked={dense} onChange={handleChangeDense} />}
         label="Dense padding"
-      />
+      /> */}
     </Box>
   );
 }

@@ -17,6 +17,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 
 // import FormDialog from "components/FormDialog";
+import SideDrawer from "components/SideDrawer";
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -160,7 +161,8 @@ export default function PrimarySearchAppBar() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
+          <SideDrawer/>
+          {/* <IconButton
             size="large"
             edge="start"
             color="inherit"
@@ -168,7 +170,7 @@ export default function PrimarySearchAppBar() {
             sx={{ mr: 2 }}
           >
             <MenuIcon />
-          </IconButton>
+          </IconButton> */}
           <Typography
             variant="h6"
             noWrap

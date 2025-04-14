@@ -4,12 +4,13 @@ import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
+// import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import AddIcon from '@mui/icons-material/Add';   
-import { createPlant } from "api";
+// import { createPlant } from "api";
+import {createPlant, getTableData } from "api";
 import CreateModal from "components/CreateModal";
 
 export default function FormDialog() {
@@ -43,7 +44,12 @@ export default function FormDialog() {
               event.preventDefault();
               const formData = new FormData(event.currentTarget);
               const formJson = Object.fromEntries(formData.entries());
-              const oSuccessResponse=await createPlant(formJson)
+              const oSuccessResponse=await createPlant(formJson)   
+              
+              const _items = await getTableData({
+                $top: 5,
+                $skip: 0
+              });    
               handleClose();
             },
           },
@@ -81,7 +87,7 @@ export default function FormDialog() {
             required
             margin="dense"
             id="city"
-            name="City"
+            name="city" 
             label="Enter City"   
             type="text"
             fullWidth
@@ -90,7 +96,8 @@ export default function FormDialog() {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button type="submit">Submit</Button>
+          {/* <Button type="submit">Submit</Button> */}
+          <CreateModal/>   
         </DialogActions>
       </Dialog>
     </React.Fragment>

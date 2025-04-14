@@ -1,8 +1,9 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+import Typography  from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+// import Snackbar from '@mui/material/Snackbar';
 
 const style = {
   position: 'absolute',
@@ -17,27 +18,51 @@ const style = {
 };
 
 export default function BasicModal() {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const [openModal, setOpenModal] = React.useState(false);
+
+  // const [state, setState] = React.useState({
+  //   vertical: 'bottom',
+  //   horizontal: 'center',
+  // });
+  // const { vertical, horizontal } = state;
+
+  const handleOpen = () => setOpenModal(true);
+  const handleCloseModal = () => setOpenModal(false);
+
 
   return (
     <div>
-      <Button onClick={handleOpen}>Open modal</Button>
+      {/* <Button onClick={handleOpen}>Open modal</Button> */}
+      <Button type="submit" onClick={handleOpen}>Submit</Button>
       <Modal
-        open={open}
-        onClose={handleClose}
+        open={openModal}
+        onClose={handleCloseModal}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+        {/* <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
+            Information
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+            Plant Created Successfully!
           </Typography>
-        </Box>
+        </Box> */}
+          <Box sx={{ ...style, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: '200px' }}>
+            <div>
+              <Typography id="modal-modal-title" variant="h6" component="h2">
+                Information
+              </Typography>
+              <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                Plant Created Successfully!
+              </Typography>
+            </div>
+            <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 3 }}>
+              <Button variant="contained" color="primary" onClick={handleCloseModal}>
+                Close
+              </Button>   
+            </Box>
+          </Box>
       </Modal>
     </div>
   );
